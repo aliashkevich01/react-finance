@@ -1,0 +1,26 @@
+.scrumb_wrap{
+    margin: 20px;
+}
+.scrumb{
+    position: relative;
+    font-size: 18px;
+}
+.scrumb:not(:last-child) {
+    color: #1414b4;
+    cursor: pointer;
+}
+.scrumb:not(:last-child)::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    height: 1.2px;
+    background-color: #1414b4;
+    transition: left .5s ease-in-out .05s, right .15s ease-in-out .05s;
+} 
+.scrumb:not(:last-child):hover::after{
+    bottom: 0;
+    left: 0;
+    right: 20%;
+} 

@@ -1,0 +1,37 @@
+.info_wrap{
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;   
+}
+.info_header{
+    cursor: pointer;
+    font-size: 32px;
+    position: relative;
+}
+.info_header::before {
+    content: '';
+    width: 4px;
+    position: absolute;
+    top: 0;
+    bottom: 90%;
+    left: -10px;
+    background: #FF0000;
+    transition: bottom .3s ease-in .05s;
+}
+.info_header:hover::before{
+    bottom: 0;
+}
+.topic_header{
+    text-align: left;
+    margin: 15px 0;
+}
+button {
+    margin: 5px 0;
+}
+footer{
+    position: relative !important;
+    margin-right: 20px;
+}
