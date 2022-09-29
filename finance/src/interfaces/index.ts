@@ -18,6 +18,9 @@ export interface ActionInterface {
     type: string;
     payload?: UserInterface;
 }
+export interface StoreIterface {
+    userReducer: StateInterface;
+}
 export interface InputPropsInterface {
     labelText: string;
     type: string;
@@ -44,3 +47,20 @@ export interface SelectPropsInterface {
     change: (e: ChangeEvent<HTMLSelectElement>) => void;
     default: string;
 }
+export interface DateInterface {
+    day: string;
+    month: string;
+    year: string;
+}
+export interface DateInputInterface extends DateInterface{
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+export interface ObjectInterface {
+    minLength?:string;
+    maxLength?:string;
+    minAge?:string;
+    maxAge?:string;
+    regExp?:string;
+    oneOf?:Array<string>;
+    anyOf?: Array<string>;
+  }

@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: calc(100vh - 230px);
 }
 .auth_form{
     display: flex;

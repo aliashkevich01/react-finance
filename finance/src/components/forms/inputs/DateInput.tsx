@@ -1,27 +1,22 @@
 import React from 'react'
+import { BIRTH_DATA } from '../../../constants';
+import { DateInputInterface, DateInterface } from '../../../interfaces';
 import classes from './input.module.css';
 
-export default function DateInput(props: any) {
+export default function DateInput(props: DateInputInterface) {
+  const date: DateInterface ={day: props.day, month: props.month, year: props.year}
   return (
     <div>
-        <input 
-        type='text' id="day"
+      {BIRTH_DATA.map((item) => {
+        return <input
+        key={item} 
+        type='text' 
+        id={item}
         className={classes.date_input} 
-        placeholder='DD' 
-        value={props.day}
+        placeholder={item} 
+        value={props[item as keyof typeof date]}
         onChange={props.onChange}/>
-        <input 
-        type='text' id="month" 
-        className={classes.date_input} 
-        placeholder='MM' 
-        value={props.month}
-        onChange={props.onChange}/>
-        <input 
-        type='text' id="year" 
-        className={classes.date_input} 
-        placeholder='YYYY' 
-        value={props.year}
-        onChange={props.onChange}/>
+      })}
     </div>
   )
 }

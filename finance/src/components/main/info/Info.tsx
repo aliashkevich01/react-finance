@@ -12,31 +12,24 @@ import Input from '../../forms/inputs/Input';
 import ModalWindow from '../../modal/Modal';
 import { unAuthorizeAction, updateAction } from '../../../redux/actions';
 import DateInput from '../../forms/inputs/DateInput';
-interface ObjectInterface {
-  minLength?:string;
-  maxLength?:string;
-  minAge?:string;
-  maxAge?:string;
-  regExp?:string;
-  oneOf?:Array<string>;
-  anyOf?: Array<string>;
-}
+import { ObjectInterface, StoreIterface } from '../../../interfaces';
+
 
 export default function Info() {
  const dispatch = useDispatch();
- const {hobby, ocean, sex, firstName, lastName, mobilePhone, email, password, birthday} = useSelector((state: any) => state.userReducer); 
+ const {hobby, ocean, sex, firstName, lastName, mobilePhone, email, password, birthday} = useSelector((state: StoreIterface) => state.userReducer); 
  const [curFirstName, setCurFirstName] = useState(firstName);
  const [curLastName, setCurLastName] = useState(lastName);
- const [checks, setChecks] = useState(hobby);
+ const [hobbies, setChecks] = useState(hobby);
  const [curOcean, setCurOcean] = useState(ocean);
  const [curSex, setCurSex] = useState(sex);
  const [phone, setPhone] = useState(mobilePhone);
  const [Inputpassword, setPassword] = useState(password);
  const [mail, setMail] = useState(email);
  const [curYear, setYear] = useState({
-  year: birthday.slice(0, 4),
-  month: birthday.slice(5, 7),
-  day: birthday.slice(8, 10)
+  'year': birthday.slice(0, 4),
+  'month': birthday.slice(5, 7),
+  'day': birthday.slice(8, 10)
 });
  const [isModalShow, setModalShow] = useState(false);
  const handleModalClick = () => {
@@ -49,11 +42,11 @@ export default function Info() {
   setCurLastName(e.target.value);
  } 
  const handleChangeCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-  const check = e.target.checked;
-  check ? 
-  setChecks([...checks, e.target.nextElementSibling?.textContent]) :
+  const curHobbie = e.target.checked;
+  curHobbie ? 
+  setChecks([...hobbies, e.target.nextElementSibling?.textContent!]) :
    setChecks(
-    [...checks].filter((item: string) => {
+    [...hobbies].filter((item: string) => {
       return item !== e.target.nextElementSibling?.textContent
     })
    );
@@ -65,11 +58,9 @@ export default function Info() {
   setCurSex(e.target.value);
  }
   const handleChangePhone = (e: ChangeEvent<HTMLInputElement>) => {
-    let value = (e.target as HTMLInputElement).value;
-    value = value.replace(/ /gm, '');
-    setPhone(value);
-    let num = `${value.substring(0, 4)} ${value.substring(4, 6)} ${value.substring(6, value.length)}`;
-    (e.target as HTMLInputElement).value = num;
+    const val = e.target.value.replace(/\s+/g, '');
+    setPhone(val);
+    console.log(val);
   }
   const handleChangeMail = (e: ChangeEvent<HTMLInputElement>) => {
     setMail(e.target.value);
@@ -138,7 +129,7 @@ export default function Info() {
        countYear(`${curYear.year}-${curYear.month}-${curYear.day}`) >= parsedData.birthday.minAge &&
        curSex &&
        curOcean &&
-       checks.length
+       hobbies.length
        ){
       dispatch(updateAction({
         firstName: curFirstName, 
@@ -148,7 +139,7 @@ export default function Info() {
         email: mail, 
         birthday: '20',
         ocean: curOcean, 
-        hobby: checks, 
+        hobby: hobbies, 
         sex: curSex,
       }));
       dispatch(unAuthorizeAction());
@@ -204,7 +195,7 @@ export default function Info() {
                 <CheckBox
                 change={handleChangeCheckbox} 
                 items={temp.anyOf} 
-                checked={checks} 
+                checked={hobbies} 
                 />
               </React.Fragment>
             );
@@ -222,7 +213,7 @@ export default function Info() {
       <Button variant='primary' onClick={validateAll}>Complete</Button>
       <ModalWindow 
       items={
-        [curFirstName, curLastName, mail, phone, Inputpassword, checks, curOcean, curSex, birthday]
+        [curFirstName, curLastName, mail, phone, Inputpassword, hobbies, curOcean, curSex, birthday]
       }
       show={isModalShow} 
       onHide={handleModalClick}/>

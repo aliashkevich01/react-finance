@@ -6,10 +6,11 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../forms/inputs/Input';
 import { AuthorizeAction } from '../../../redux/actions';
+import { StoreIterface } from '../../../interfaces';
 
 
 export default function AuthForm() {
-  const {mobilePhone, email, password} = useSelector((state: any) => state.userReducer);
+  const {mobilePhone, email, password} = useSelector((state: StoreIterface) => state.userReducer);
   const dispatch = useDispatch();
   const [phone, setPhone] = useState('');
   const [Inputpassword, setPassword] = useState('');
